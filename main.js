@@ -2,18 +2,19 @@ const fs = require('fs');
 const ytdl = require('ytdl-core');
 const exec = require('child_process').execSync
 
-const name = 'Runway_Christy-Turlington.mp4'
-const url = 'https://www.youtube.com/watch?v=eyo45BPtL_w&list=PLM_UnpAX9rCnv32YxhNUtObfx2GoFcd3S&index=15&t=6s'
-const subdir = 'Runway'
+const name = 'Gesa\ DJ\ set\ Boiler\ Room\ Berlin.mp4'
+const url = 'https://www.youtube.com/watch?v=8k4UzJnH504'
+const surdir = 'Music'
+const subdir = 'downloads'
 
 const res = ytdl(url)
-	.pipe(fs.createWriteStream(`${name}`))
+	.pipe(fs.createWriteStream(`./downloads/${name}`))
 
 res.on('finish', () => {
 	try {
-		exec(`mkdir ~/Video/${subdir}`)
+		exec(`mkdir ~/${surdir}/${subdir}`)
 	} catch (_) {}
-	exec(`mv ${name} ~/Video/${subdir}/`)
+	exec(`mv "${name}" ~/${surdir}/${subdir}/`)
 	console.log('done')
 	process.exit()
 })
