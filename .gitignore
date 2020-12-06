@@ -4,3 +4,4 @@ lib
 .env
 dist
 downloads
+node_modules
