@@ -92,7 +92,9 @@ async function download (name, url) {
 		console.log('Downloading: ', name, url)
 		const downloadPath = `${downloadDir}/${name}.${ext || 'mp3'}`
 	
-		const stream = ytdl(url)
+		const stream = ytdl(url, { 
+			filter: format => format.contentLength
+		})
 		const proc = new ffmpeg({ source: stream })
 		proc
 			.setFfmpegPath(ffmpeg_bin_path)
