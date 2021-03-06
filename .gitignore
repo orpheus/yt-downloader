@@ -3,5 +3,6 @@
 lib
 .env
 dist
-downloads
 node_modules
+errors.js
+history.js
