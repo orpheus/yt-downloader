@@ -17,9 +17,11 @@ If you have the location, you can either harcode it in or set it via an env var
 
 # Add tracks to download
 
-In `downloadTracks.js` create an array with the name and url of the track you want to download.
+In `downloadTracks.js` create and export an object with the name as the key and the youtube url as the value.
 
-`[name, url]`
+`module.exports = {
+	'A*S*Y*S - The Acid (Acid 2019)': 'https://www.youtube.com/watch?v=n2PIhVwh3yA'
+}`
 
 Add as many as you'd like and run the program.
 
@@ -27,11 +29,11 @@ Add as many as you'd like and run the program.
 
 `node main`
 
-# Run with namespace
+# Use namespaces
 
 You can pass a namespace to the main command and it will download your files into a folder with the specified namespace name. The default namespace is `library` and will be used if one is not passed.
 
-`node main.js <namespace> // directory to store downloads inside the ./downloads
+`node main.js <namespace> // directory to store downloads inside the ./downloads/<namespace>
 folder`
 
 # Errors and History Logs
