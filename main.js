@@ -67,6 +67,8 @@ async function logHistory () {
 
 		if (saveObject[namespace]) {
 			saveObject[namespace] = {...saveObject[namespace], ...historyLog}
+		} else {
+			saveObject[namespace] = historyLog
 		}
 	} else {
 		saveObject[namespace] = historyLog
@@ -92,21 +94,22 @@ async function download (name, url) {
 	
 		const stream = ytdl(url)
 		const proc = new ffmpeg({ source: stream })
+		proc
+			.setFfmpegPath(ffmpeg_bin_path)
+			.withAudioBitrate('192k')
+			.saveToFile(downloadPath)
+			.on('error', err => {
+				console.error(`Error downloading ${name}: ${err}`)
+				errorMap.set(name, url)
+				res([name, url])
+			})
 
-		proc.setFfmpegPath(ffmpeg_bin_path).withAudioBitrate('192k')
-		proc.saveToFile(downloadPath)
+			.on('end', () => {
+				console.log(`Downloaded ${name}`)
+				historyMap.set(name, url)
+				res([name, url])
+			})
 
-		proc.on('error', err => {
-			console.error(`Error downloading ${name}: ${err}`)
-			errorMap.set(name, url)
-			res([name, url])
-		})
-
-		proc.on('end', () => {
-			console.log(`Downloaded ${name}`)
-			historyMap.set(name, url)
-			res([name, url])
-		})
 	})
 }
 
